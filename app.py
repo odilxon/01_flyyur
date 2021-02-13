@@ -433,26 +433,29 @@ def edit_venue_submission(venue_id):
   data = request.form
   form = VenueForm()
   print(request.form)
-  try:
-    venue.name = data["name"]
-    venue.city = data["city"]
-    venue.state = data["state"]
-    venue.address = data["address"]
-    venue.phone = data["phone"]
-    venue.image_link = data["image_link"]
-    venue.facebook_link = data["facebook_link"]
-    venue.website = data['website']
-    venue.seeking_talent = form.seeking_talent.data 
-    venue.seeking_description = data["seeking_description"]
-    venue.genres = ",".join(data.getlist("genres"))
-    db.session.commit()
-    flash('Venue ' + data['name'] + ' was successfully updated!')
-  except Exception as e:
-    print(str(e))
-    db.session.close()
-    flash('Venue ' + data['name'] + ' was not successfully updated(')
-  return redirect(url_for('show_venue', venue_id=venue_id))
-
+  if form.validate_on_submit():
+    try:
+      venue.name = data["name"]
+      venue.city = data["city"]
+      venue.state = data["state"]
+      venue.address = data["address"]
+      venue.phone = data["phone"]
+      venue.image_link = data["image_link"]
+      venue.facebook_link = data["facebook_link"]
+      venue.website = data['website']
+      venue.seeking_talent = form.seeking_talent.data 
+      venue.seeking_description = data["seeking_description"]
+      venue.genres = ",".join(data.getlist("genres"))
+      db.session.commit()
+      flash('Venue ' + data['name'] + ' was successfully updated!')
+    except Exception as e:
+      print(str(e))
+      db.session.close()
+      flash('Venue ' + data['name'] + ' was not successfully updated(')
+    return redirect(url_for('show_venue', venue_id=venue_id))
+  else:
+    flash("There are some errors")
+    return render_template('forms/edit_venue.html', form=form, venue=venue)
 #  Create Artist
 #  ----------------------------------------------------------------
 
