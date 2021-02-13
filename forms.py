@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_wtf import FlaskForm
 from flask_wtf.html5 import URLField
-from wtforms import ValidationError,StringField, SelectField, SelectMultipleField, DateTimeField, RadioField
+from wtforms import ValidationError,StringField, SelectField, SelectMultipleField, DateTimeField, RadioField, BooleanField, SubmitField
 from wtforms.validators import Required, DataRequired, InputRequired, AnyOf, url, Regexp
 
 
@@ -93,7 +93,7 @@ class ShowForm(FlaskForm):
         validators=[DataRequired()],
         default= datetime.today()
     )
-
+    submit = SubmitField('Add Show')
 class VenueForm(FlaskForm):
     name = StringField(
         'name', validators=[DataRequired()]
@@ -109,7 +109,7 @@ class VenueForm(FlaskForm):
         'address', validators=[DataRequired()]
     )
     phone = StringField(
-        'phone', validators=[DataRequired(),Regexp(r"\d+") ]
+        'phone', validators=[DataRequired(), Regexp(r"[0-9]+")]
     )
     image_link = URLField(
         'image_link', validators=[DataRequired(),url()]
@@ -117,7 +117,7 @@ class VenueForm(FlaskForm):
     website  = URLField(
         'website', validators=[DataRequired(),url()]
     ) 
-    seeking_talent= RadioField('seeking_talant',coerce=int,choices=[('1','True'),('0','False')], validators=[DataRequired()])
+    seeking_talent= BooleanField()
     seeking_description = StringField(
         "seeking_description",
     )
@@ -129,7 +129,8 @@ class VenueForm(FlaskForm):
     facebook_link = URLField(
         'facebook_link', validators=[DataRequired(),url()]
     )
-    
+    submit = SubmitField('Add Venue')
+
 class ArtistForm(FlaskForm):
     name = StringField(
         'name', validators=[DataRequired()]
@@ -143,7 +144,7 @@ class ArtistForm(FlaskForm):
     )
     phone = StringField(
         # TODO implement validation logic for state
-        'phone', validators=[DataRequired(),Regexp(r"\d+")]
+        'phone', validators=[DataRequired(),Regexp(r"[0-9]+")]
     )
     image_link = URLField(
         'image_link', validators=[DataRequired()]
@@ -160,10 +161,10 @@ class ArtistForm(FlaskForm):
     website = URLField(
         "website", validators=[DataRequired()]
     )
-    seeking_venue= RadioField('seeking_venue',validators=[DataRequired()],coerce=int,choices=[('1','True'),('0','False')])
+    seeking_venue= BooleanField()
     seeking_description = StringField(
         "seeking_description"
     )
-     
+    submit = SubmitField('Add Artist')
 
 # TODO IMPLEMENT NEW ARTIST FORM AND NEW SHOW FORM

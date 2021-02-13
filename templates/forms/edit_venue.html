@@ -3,6 +3,7 @@
 {% block content %}
   <div class="form-wrapper">
     <form class="form" method="post" action="/venues/{{venue.id}}/edit">
+      {{ form.csrf_token }}
       <h3 class="form-heading">Edit venue <em>{{ venue.name }}</em> <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
       <div class="form-group">
         <div class="form-group">
@@ -56,7 +57,7 @@
             <label for="genres">Facebook Link</label>
             {{ form.facebook_link(class_ = 'form-control', placeholder='http://',  autofocus = true, value=venue.facebook_link) }}
           </div>
-      <input type="submit" value="Edit Venue" class="btn btn-primary btn-lg btn-block">
+          <input type="submit" value="Edit Venue" class="btn btn-primary btn-lg btn-block">
     </form>
   </div>
 {% endblock %}
