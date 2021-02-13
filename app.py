@@ -558,6 +558,10 @@ def create_show_submission():
   # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
   return render_template('pages/home.html')
 
+@app.route("/test", methods=["GET"])
+def test():
+  return "Working"
+
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('errors/404.html'), 404

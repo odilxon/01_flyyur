@@ -1,3 +1,6 @@
+[![Heroku](https://heroku-badge.herokuapp.com/?app=flyyur&style=flat)]
+
+
 Fyyur
 -----
 
