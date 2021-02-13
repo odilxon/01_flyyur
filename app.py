@@ -583,6 +583,9 @@ def create_show_submission():
   else:
     flash("An error occured")
     return render_template('forms/new_show.html', form=form)
+@app.route("/test", methods=["GET"])
+def test():
+  return "Working"
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('errors/404.html'), 404
