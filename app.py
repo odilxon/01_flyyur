@@ -583,7 +583,7 @@ if not app.debug:
 
 # Default port:
 if __name__ == '__main__':
-    app.run(port=2000)
+    app.run(port=5000)
 
 # Or specify port manually:
 '''
